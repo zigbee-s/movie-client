@@ -1,5 +1,5 @@
 // Connection to server
-var socket = io.connect("http://localhost:3000", {
+var socket = io.connect("http://movieserver-env.eba-r93zfwia.us-east-1.elasticbeanstalk.com/", {
     reconnection: true
 });
 
@@ -29,17 +29,17 @@ const playPauseBtn = document.getElementById('play-pause');
 const progress = document.getElementById('progress-bar');
 const fullscreenBtn = document.getElementById('fullscreen');
 const container = document.getElementById('container');
+const volinc = document.getElementById('volinc');
+const voldec = document.getElementById('voldec');
+
+
+
 
 fullscreenBtn.addEventListener('click',openFullscreen);
 playPauseBtn.addEventListener('click',pauseOrstart);
 vid.addEventListener('click',pauseOrstart);
 
-vid.addEventListener('timeupdate', function() {
-    var progressBar = document.getElementById('progress-bar');
-    var percentage = Math.floor((100 / vid.duration) * vid.currentTime);
-    progressBar.value = percentage;
-    progressBar.innerHTML = percentage + '% played';
- });
+vid.addEventListener('timeupdate', updateProgressBar);
  
  
  progress.addEventListener('click', function(e) {
@@ -47,6 +47,21 @@ vid.addEventListener('timeupdate', function() {
     var newTime =pos * vid.duration;
     socket.emit('progress-bar-clicked',newTime);
  });
+
+ volinc.addEventListener('click', function(e) {
+    alterVolume('+');
+ });
+ 
+ 
+ voldec.addEventListener('click', function(e) {
+    alterVolume('-');
+ });
+
+ 
+
+
+
+ //Functions
 
 function pauseOrstart(){
     socket.emit('vid-state','clicked');
@@ -62,5 +77,19 @@ function openFullscreen(){
       }
 }
 
+function updateProgressBar(){
+    var progressBar = document.getElementById('progress-bar');
+    var percentage = Math.floor((100 / vid.duration) * vid.currentTime);
+    progressBar.value = percentage;
+};
 
+function alterVolume(dir){
+    var currentVolume = Math.floor(vid.volume * 10) / 10;
+   if (dir === '+') {
+      if (currentVolume < 1) vid.volume += 0.1;
+   }
+   else if (dir === '-') {
+      if (currentVolume > 0) vid.volume -= 0.1;
+   }
+}
 
