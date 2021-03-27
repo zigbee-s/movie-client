@@ -1,0 +1,29 @@
+#container {
+  width: 70%;
+}
+
+.video {
+  width: 100%;
+}
+
+.progress-bar-div {
+  flex: 1;
+}
+
+#progress-bar {
+  width: 100%;
+}
+
+.video-c {
+  position: relative;
+}
+.video-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  padding: 5px;
+  bottom: 0;
+}
