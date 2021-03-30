@@ -40,10 +40,7 @@ const voldec = document.getElementById('voldec');
 fullscreenBtn.addEventListener('click',openFullscreen);
 playPauseBtn.addEventListener('click',pauseOrstart);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 8c97d2147b66db69c66f2c74a9d37c0095ce0d61
 vid.addEventListener('timeupdate', updateProgressBar);
  
  
